@@ -6,4 +6,5 @@ This was taken from some tutorials and mixed up for multiple uses. Can be used a
 You can add to the VRChat Creator Companion by going to ``Settings > Packages > Add Repository`` and just adding ``https://world.ugandavrc.com/index.json``
 
 ## Notes
-If you see something weird with transparency, just set it to AlphaTest and it should fix it.
+* If you see something weird with transparency, just set it to AlphaTest and it should fix it.
+* AudioLink Minimal package is required before adding this repo. Get it from here: https://github.com/llealloo/vrc-udon-audio-link

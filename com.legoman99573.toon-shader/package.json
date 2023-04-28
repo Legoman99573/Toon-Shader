@@ -27,11 +27,6 @@
       "displayName": "Ramps",
       "description": "An folder that contains some example Ramps",
       "path": "Samples~/Ramps"
-    },
-    {
-      "displayName": "Example Asset and Scene",
-      "description": "An folder that contains some example assets and scenes.",
-      "path": "Samples~/Example"
     }
   ],
   "legacyFiles": {},

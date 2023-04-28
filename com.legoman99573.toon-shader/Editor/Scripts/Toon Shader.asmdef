@@ -1,0 +1,24 @@
+{
+    "name": "com.ugandavrc",
+    "references": [
+        "GUID:7d19f374e7e59194ab5070e4423028ca",
+        "GUID:369e5579233b53843ad0f0ef277b53f0"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.ugui",
+            "expression": "",
+            "define": ""
+        }
+    ],
+    "noEngineReferences": false
+}

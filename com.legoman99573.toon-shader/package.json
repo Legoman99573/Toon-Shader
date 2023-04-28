@@ -1,0 +1,40 @@
+{
+  "name": "com.ugandavrc.toon-shader",
+  "displayName": "Legoman99573 Toon Shader",
+  "version": "1.3.4",
+  "description": "Toon Shader for VRChat",
+    "author": {
+    "name": "Legoman99573",
+    "email": "legoman@ugandavrc.com",
+    "url": "https://github.com/Legoman99573/Toon-Shader"
+  },
+  "gitDependencies": {
+	  "com.llealloo.audiolink": "0.3.2"
+  },
+  "vpmDependencies": {
+	  "com.vrchat.avatars": ">=3.1.2"
+  },
+  "legacyFolders": {
+    "Assets\\Legoman99573 Toon Shader": ""
+  },
+  "samples": [
+    {
+      "displayName": "MatCaps",
+      "description": "An folder that contains some simple MatCaps",
+      "path": "Samples~/MatCaps"
+    },
+    {
+      "displayName": "Ramps",
+      "description": "An folder that contains some example Ramps",
+      "path": "Samples~/Ramps"
+    },
+    {
+      "displayName": "Example Asset and Scene",
+      "description": "An folder that contains some example assets and scenes.",
+      "path": "Samples~/Example"
+    }
+  ],
+  "legacyFiles": {},
+  "type": "library",
+  "unity": "2019.4"
+}

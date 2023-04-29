@@ -53,10 +53,18 @@ namespace com.ugandavrc
 
         void OnGUI()
         {
+            this.minSize = new Vector2(400, 300);
+            GUIStyle largeTitleStyle = new GUIStyle(EditorStyles.largeLabel);
+            largeTitleStyle.fontSize = 15;
+            largeTitleStyle.alignment = TextAnchor.MiddleCenter;
+            largeTitleStyle.fixedHeight = 25;
+
+            EditorGUILayout.LabelField("Gradient Texture Generator", largeTitleStyle);
             EditorGUI.BeginChangeCheck();
             titleContent = new GUIContent("Gradient Texture Generator");
             SerializedObject so = new SerializedObject(this);
             EditorGUILayout.PropertyField(so.FindProperty("gradient"), true, null);
+            EditorGUILayout.HelpBox("Not in Light View <--> In Light View", MessageType.Info);
             if (EditorGUI.EndChangeCheck())
             {
                 so.ApplyModifiedProperties();
@@ -80,6 +88,7 @@ namespace com.ugandavrc
                 fileName = GUILayout.TextField(fileName, GUILayout.Width(120f));
                 GUILayout.Label(".png");
             }
+            EditorGUILayout.HelpBox("Note to change the name to prevent accidential overriding.", MessageType.Warning);
 
             if (GUILayout.Button("Save"))
             {

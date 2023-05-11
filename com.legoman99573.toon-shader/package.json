@@ -1,7 +1,7 @@
 {
   "name": "com.ugandavrc.toon-shader",
   "displayName": "Legoman99573 Toon Shader",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Toon Shader for VRChat",
   "author": {
     "name": "Legoman99573",
@@ -9,10 +9,10 @@
     "url": "https://github.com/Legoman99573/Toon-Shader"
   },
   "gitDependencies": {
-    "com.llealloo.audiolink": "0.3.2"
+    "com.llealloo.audiolink": "0.3.x"
   },
   "vpmDependencies": {
-    "com.vrchat.avatars": ">=3.1.2"
+    "com.vrchat.base": ">=3.x.x"
   },
   "legacyFolders": {
     "Assets\\Legoman99573 Toon Shader": ""

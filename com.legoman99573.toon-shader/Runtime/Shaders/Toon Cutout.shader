@@ -67,14 +67,14 @@ Shader "Legoman99573/Toon Cutout"
 		_SizeSpeedInterval("Size Speed Interval", Vector) = (1,1,1,0)
 		_GlintFresnel("Fresnel Bias, Scale, Power", Vector) = (0,0,0,0)
 		[Header(__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________)][Header(Render Options)][IntRange][Enum(Off,0,Front,1,Back,2)]_CullingMode("Cull Mode", Range( 0 , 2)) = 0
-		[HideInInspector] _texcoord3( "", 2D ) = "white" {}
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
+		[HideInInspector] _texcoord3( "", 2D ) = "white" {}
 		[HideInInspector] __dirty( "", Int ) = 1
 	}
 
 	SubShader
 	{
-		Tags{ "RenderType" = "TransparentCutout"  "Queue" = "AlphaTest+0" "IgnoreProjector" = "True" }
+		Tags{ "RenderType" = "TransparentCutout"  "Queue" = "AlphaTest+0" "IgnoreProjector" = "True" "IsEmissive" = "true"  }
 		Cull [_CullingMode]
 		AlphaToMask On
 		CGPROGRAM
@@ -116,10 +116,10 @@ Shader "Legoman99573/Toon Cutout"
 		};
 		struct Input
 		{
-			float3 worldNormal;
-			INTERNAL_DATA
 			float2 uv_texcoord;
 			float2 ase_texcoord5;
+			float3 worldNormal;
+			INTERNAL_DATA
 			float3 worldRefl;
 			float2 uv3_texcoord3;
 			float3 worldPos;
@@ -141,13 +141,13 @@ Shader "Legoman99573/Toon Cutout"
 
 		UNITY_DECLARE_TEX2D_NOSAMPLER(_ParallaxMap);
 		SamplerState sampler_ParallaxMap;
-		UNITY_DECLARE_TEX2D_NOSAMPLER(_MainTex);
+		UNITY_DECLARE_TEX2D_NOSAMPLER(_EmissionMap);
 		SamplerState sampler_Linear_Repeat;
+		UNITY_DECLARE_TEX2D_NOSAMPLER(_EmissionMapAudioLink0);
+		UNITY_DECLARE_TEX2D_NOSAMPLER(_MainTex);
 		UNITY_DECLARE_TEX2D_NOSAMPLER(_DetailAlbedoMap);
 		UNITY_DECLARE_TEX2D_NOSAMPLER(_BumpMap);
 		UNITY_DECLARE_TEX2D_NOSAMPLER(_DetailNormalMap);
-		UNITY_DECLARE_TEX2D_NOSAMPLER(_EmissionMap);
-		UNITY_DECLARE_TEX2D_NOSAMPLER(_EmissionMapAudioLink0);
 		UNITY_DECLARE_TEX2D_NOSAMPLER(_MetallicGlossMap);
 		UNITY_DECLARE_TEX2D_NOSAMPLER(_OcclusionMap);
 		UNITY_DECLARE_TEX2D_NOSAMPLER(_MatCap);
@@ -169,110 +169,110 @@ Shader "Legoman99573/Toon Cutout"
 		UNITY_DECLARE_TEX2D_NOSAMPLER(_GlintMap);
 
 		UNITY_INSTANCING_BUFFER_START(Legoman99573ToonCutout)
-			UNITY_DEFINE_INSTANCED_PROP(float4, _SpecColorToon)
-#define _SpecColorToon_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _MatCapColorAdditive)
-#define _MatCapColorAdditive_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _Glitter_ST)
-#define _Glitter_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _MatCapMask_ST)
-#define _MatCapMask_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _MatCapColor)
-#define _MatCapColor_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _GlitterColor)
-#define _GlitterColor_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
+#define _Color_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _DetailNormalMap_ST)
+#define _DetailNormalMap_ST_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float4, _OcclusionMap_ST)
 #define _OcclusionMap_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _MetallicGlossMap_ST)
-#define _MetallicGlossMap_ST_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _BumpMap_ST)
+#define _BumpMap_ST_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _GlitterMap_ST)
+#define _GlitterMap_ST_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _DetailAlbedoMap_ST)
+#define _DetailAlbedoMap_ST_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _MainTex_ST)
+#define _MainTex_ST_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float4, _RimTint)
 #define _RimTint_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _GlintMap_ST)
+#define _GlintMap_ST_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _Glitter_ST)
+#define _Glitter_ST_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float4, _SpecGlossMap_ST)
 #define _SpecGlossMap_ST_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _SpecColorToon)
+#define _SpecColorToon_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _MatCapColor)
+#define _MatCapColor_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _MatCapMask_ST)
+#define _MatCapMask_ST_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float4, _EmissionColorAudioLink0)
 #define _EmissionColorAudioLink0_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float4, _EmissionMapAudioLink0_ST)
 #define _EmissionMapAudioLink0_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _GlitterMap_ST)
-#define _GlitterMap_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _EmissionMap_ST)
-#define _EmissionMap_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _GlintMap_ST)
-#define _GlintMap_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _MainTex_ST)
-#define _MainTex_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _DetailAlbedoMap_ST)
-#define _DetailAlbedoMap_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _DetailNormalMap_ST)
-#define _DetailNormalMap_ST_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
-#define _Color_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float4, _BumpMap_ST)
-#define _BumpMap_ST_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float4, _EmissionColor)
 #define _EmissionColor_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _EmissionMap_ST)
+#define _EmissionMap_ST_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _MatCapColorAdditive)
+#define _MatCapColorAdditive_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _GlitterColor)
+#define _GlitterColor_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float4, _MetallicGlossMap_ST)
+#define _MetallicGlossMap_ST_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float2, _NoiseSpeed)
 #define _NoiseSpeed_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _InvertDirection)
-#define _InvertDirection_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _Cutoff)
+#define _Cutoff_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _RimOffset)
 #define _RimOffset_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _EnableSpecular)
-#define _EnableSpecular_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _RimPower)
 #define _RimPower_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _RimOverride)
 #define _RimOverride_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _GlossyReflections)
 #define _GlossyReflections_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _SpecularHighlights)
-#define _SpecularHighlights_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _SpecularLightMix)
 #define _SpecularLightMix_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _SpecularHighlights)
+#define _SpecularHighlights_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _EnableSpecular)
+#define _EnableSpecular_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _InvertDirection)
+#define _InvertDirection_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _EnableGlitter)
 #define _EnableGlitter_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _Cutoff)
-#define _Cutoff_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _EnableMatCap)
+#define _EnableMatCap_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _OcclusionStrength)
 #define _OcclusionStrength_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _EnableMatCap2)
-#define _EnableMatCap2_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _AddMatCapAdditive)
+#define _AddMatCapAdditive_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _Parallax)
 #define _Parallax_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _CullingMode)
 #define _CullingMode_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _BumpScale)
-#define _BumpScale_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _DetailNormalMapScale)
-#define _DetailNormalMapScale_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _Band)
 #define _Band_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _PulseRotation)
 #define _PulseRotation_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _Pulse)
 #define _Pulse_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _EnableMatCap)
-#define _EnableMatCap_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _Delay)
 #define _Delay_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _AudioHueShift)
+#define _AudioHueShift_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _EmissionScale)
 #define _EmissionScale_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _EnableAudioLink)
 #define _EnableAudioLink_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _BumpScale)
+#define _BumpScale_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _DetailNormalMapScale)
+#define _DetailNormalMapScale_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _Metallic)
 #define _Metallic_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _Glossiness)
 #define _Glossiness_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _EnableGlint)
-#define _EnableGlint_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _AddMatCap)
-#define _AddMatCap_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _AddMatCapAdditive)
-#define _AddMatCapAdditive_arr Legoman99573ToonCutout
-			UNITY_DEFINE_INSTANCED_PROP(float, _AudioHueShift)
-#define _AudioHueShift_arr Legoman99573ToonCutout
 			UNITY_DEFINE_INSTANCED_PROP(float, _EnableToon)
 #define _EnableToon_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _AddMatCap)
+#define _AddMatCap_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _EnableMatCap2)
+#define _EnableMatCap2_arr Legoman99573ToonCutout
+			UNITY_DEFINE_INSTANCED_PROP(float, _EnableGlint)
+#define _EnableGlint_arr Legoman99573ToonCutout
 		UNITY_INSTANCING_BUFFER_END(Legoman99573ToonCutout)
 
 
@@ -360,7 +360,7 @@ Shader "Legoman99573/Toon Cutout"
 			float4 _EmissionMap_ST_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionMap_ST_arr, _EmissionMap_ST);
 			float2 uv_EmissionMap = i.uv_texcoord * _EmissionMap_ST_Instance.xy + _EmissionMap_ST_Instance.zw;
 			float4 _EmissionColor_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionColor_arr, _EmissionColor);
-			float3 temp_cast_1 = (0.0).xxx;
+			float3 temp_cast_6 = (0.0).xxx;
 			float4 _EmissionMapAudioLink0_ST_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionMapAudioLink0_ST_arr, _EmissionMapAudioLink0_ST);
 			float2 uv4_EmissionMapAudioLink0 = i.ase_texcoord5.xy * _EmissionMapAudioLink0_ST_Instance.xy + _EmissionMapAudioLink0_ST_Instance.zw;
 			float4 _EmissionColorAudioLink0_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionColorAudioLink0_arr, _EmissionColorAudioLink0);
@@ -388,7 +388,7 @@ Shader "Legoman99573/Toon Cutout"
 			float _EmissionScale_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionScale_arr, _EmissionScale);
 			float localIfAudioLinkv2Exists1_g114 = IfAudioLinkv2Exists1_g114();
 			float _EnableAudioLink_Instance = UNITY_ACCESS_INSTANCED_PROP(_EnableAudioLink_arr, _EnableAudioLink);
-			float3 lerpResult7_g131 = lerp( temp_cast_1 , ( ( hsvTorgb563 * _EmissionScale_Instance ) * localIfAudioLinkv2Exists1_g114 ) , _EnableAudioLink_Instance);
+			float3 lerpResult7_g131 = lerp( temp_cast_6 , ( ( hsvTorgb563 * _EmissionScale_Instance ) * localIfAudioLinkv2Exists1_g114 ) , _EnableAudioLink_Instance);
 			float3 AudioLink296 = lerpResult7_g131;
 			float4 Emission759 = ( ( SAMPLE_TEXTURE2D( _EmissionMap, sampler_Linear_Repeat, uv_EmissionMap ) * _EmissionColor_Instance ) + float4( AudioLink296 , 0.0 ) );
 			s757.Emission = Emission759.rgb;
@@ -422,7 +422,11 @@ Shader "Legoman99573/Toon Cutout"
 			surfResult757 -= s757.Emission;
 			#endif//757
 			float3 StandardSetup907 = surfResult757;
-			float4 temp_cast_7 = (0.0).xxxx;
+			float3 temp_cast_11 = (0.0).xxx;
+			float _EnableToon_Instance = UNITY_ACCESS_INSTANCED_PROP(_EnableToon_arr, _EnableToon);
+			float3 lerpResult7_g144 = lerp( StandardSetup907 , temp_cast_11 , _EnableToon_Instance);
+			float4 temp_cast_13 = (0.0).xxxx;
+			float4 temp_cast_14 = (0.0).xxxx;
 			float3 lerpResult7_g137 = lerp( ( ( mul( float4( (WorldNormalVector( i , NormalMap252 )) , 0.0 ), UNITY_MATRIX_V ).xyz * 0.5 ) + 0.5 ) , ( ( mul( float4( normalize( WorldReflectionVector( i , NormalMap252 ) ) , 0.0 ), UNITY_MATRIX_V ).xyz * 0.5 ) + 0.5 ) , 0.5);
 			float3 temp_output_1176_0 = lerpResult7_g137;
 			float4 _MatCapColor_Instance = UNITY_ACCESS_INSTANCED_PROP(_MatCapColor_arr, _MatCapColor);
@@ -430,13 +434,13 @@ Shader "Legoman99573/Toon Cutout"
 			float2 uv2_MatCapMask = i.uv3_texcoord3 * _MatCapMask_ST_Instance.xy + _MatCapMask_ST_Instance.zw;
 			float4 tex2DNode147 = SAMPLE_TEXTURE2D( _MatCapMask, sampler_Linear_Repeat, uv2_MatCapMask );
 			float _AddMatCap_Instance = UNITY_ACCESS_INSTANCED_PROP(_AddMatCap_arr, _AddMatCap);
-			float4 temp_cast_13 = (0.0).xxxx;
+			float4 temp_cast_20 = (0.0).xxxx;
 			float4 _MatCapColorAdditive_Instance = UNITY_ACCESS_INSTANCED_PROP(_MatCapColorAdditive_arr, _MatCapColorAdditive);
 			float _AddMatCapAdditive_Instance = UNITY_ACCESS_INSTANCED_PROP(_AddMatCapAdditive_arr, _AddMatCapAdditive);
 			float _EnableMatCap2_Instance = UNITY_ACCESS_INSTANCED_PROP(_EnableMatCap2_arr, _EnableMatCap2);
-			float4 lerpResult7_g136 = lerp( temp_cast_13 , ( ( SAMPLE_TEXTURE2D( _MatCapAdditive, sampler_Linear_Repeat, temp_output_1176_0.xy ) * _MatCapColorAdditive_Instance * ( 1.0 - tex2DNode147 ) ) * _AddMatCapAdditive_Instance ) , _EnableMatCap2_Instance);
+			float4 lerpResult7_g136 = lerp( temp_cast_20 , ( ( SAMPLE_TEXTURE2D( _MatCapAdditive, sampler_Linear_Repeat, temp_output_1176_0.xy ) * _MatCapColorAdditive_Instance * ( 1.0 - tex2DNode147 ) ) * _AddMatCapAdditive_Instance ) , _EnableMatCap2_Instance);
 			float _EnableMatCap_Instance = UNITY_ACCESS_INSTANCED_PROP(_EnableMatCap_arr, _EnableMatCap);
-			float4 lerpResult7_g133 = lerp( temp_cast_7 , ( ( ( SAMPLE_TEXTURE2D( _MatCap, sampler_Linear_Repeat, temp_output_1176_0.xy ) * _MatCapColor_Instance * tex2DNode147 ) * _AddMatCap_Instance ) + lerpResult7_g136 ) , _EnableMatCap_Instance);
+			float4 lerpResult7_g133 = lerp( temp_cast_14 , ( ( ( SAMPLE_TEXTURE2D( _MatCap, sampler_Linear_Repeat, temp_output_1176_0.xy ) * _MatCapColor_Instance * tex2DNode147 ) * _AddMatCap_Instance ) + lerpResult7_g136 ) , _EnableMatCap_Instance);
 			float4 temp_output_1147_0 = lerpResult7_g133;
 			float4 MatCap264 = temp_output_1147_0;
 			float4 StandardShading488 = ( ( tex2DNode60 * _Color_Instance ) + MatCap264 );
@@ -448,8 +452,8 @@ Shader "Legoman99573/Toon Cutout"
 			#endif //aseld
 			float dotResult19 = dot( ase_worldlightDir , normalize( (WorldNormalVector( i , NormalMap252 )) ) );
 			float NormalLightDir52 = dotResult19;
-			float2 temp_cast_15 = ((NormalLightDir52*0.5 + 0.5)).xx;
-			float4 Shadow56 = ( albedo262 * SAMPLE_TEXTURE2D( _ToonRamp, sampler_ToonRamp, temp_cast_15 ) );
+			float2 temp_cast_22 = ((NormalLightDir52*0.5 + 0.5)).xx;
+			float4 Shadow56 = ( albedo262 * SAMPLE_TEXTURE2D( _ToonRamp, sampler_ToonRamp, temp_cast_22 ) );
 			#if defined(LIGHTMAP_ON) && ( UNITY_VERSION < 560 || ( defined(LIGHTMAP_SHADOW_MIXING) && !defined(SHADOWS_SHADOWMASK) && defined(SHADOWS_SCREEN) ) )//aselc
 			float4 ase_lightColor = 0;
 			#else //aselc
@@ -460,7 +464,7 @@ Shader "Legoman99573/Toon Cutout"
 			gi1195 = UnityGI_Base( data, 1, diffNorm1195 );
 			float3 indirectDiffuse1195 = gi1195.indirect.diffuse + diffNorm1195 * 0.0001;
 			float4 Lighting250 = ( Shadow56 * ( ase_lightColor * float4( ( indirectDiffuse1195 + ase_lightAtten ) , 0.0 ) ) );
-			float4 temp_cast_17 = (0.0).xxxx;
+			float4 temp_cast_24 = (0.0).xxxx;
 			float4 _GlitterMap_ST_Instance = UNITY_ACCESS_INSTANCED_PROP(_GlitterMap_ST_arr, _GlitterMap_ST);
 			float2 uv6_GlitterMap = i.ase_texcoord7.xy * _GlitterMap_ST_Instance.xy + _GlitterMap_ST_Instance.zw;
 			float2 _NoiseSpeed_Instance = UNITY_ACCESS_INSTANCED_PROP(_NoiseSpeed_arr, _NoiseSpeed);
@@ -468,17 +472,17 @@ Shader "Legoman99573/Toon Cutout"
 			float2 panner1097 = ( _Time.y * _NoiseSpeed_Instance + uv_GlitterNoise);
 			float3 hsvTorgb3_g113 = HSVToRGB( float3(SAMPLE_TEXTURE2D( _GlitterNoise, sampler_GlitterNoise, panner1097 ).r,1.0,1.0) );
 			float normalizeResult1076 = normalize( ( hsvTorgb3_g113.z - 0.9999 ) );
-			float3 temp_cast_18 = (normalizeResult1076).xxx;
+			float3 temp_cast_25 = (normalizeResult1076).xxx;
 			float3 ase_worldViewDir = Unity_SafeNormalize( UnityWorldSpaceViewDir( ase_worldPos ) );
 			float3 normalizeResult1093 = normalize( ase_worldViewDir );
-			float dotResult1095 = dot( temp_cast_18 , ( 1.0 - normalizeResult1093 ) );
-			float3 temp_cast_19 = (saturate( dotResult1095 )).xxx;
-			float grayscale1101 = Luminance(temp_cast_19);
+			float dotResult1095 = dot( temp_cast_25 , ( 1.0 - normalizeResult1093 ) );
+			float3 temp_cast_26 = (saturate( dotResult1095 )).xxx;
+			float grayscale1101 = Luminance(temp_cast_26);
 			float4 _Glitter_ST_Instance = UNITY_ACCESS_INSTANCED_PROP(_Glitter_ST_arr, _Glitter_ST);
 			float2 uv_Glitter = i.uv_texcoord * _Glitter_ST_Instance.xy + _Glitter_ST_Instance.zw;
 			float4 _GlitterColor_Instance = UNITY_ACCESS_INSTANCED_PROP(_GlitterColor_arr, _GlitterColor);
 			float _EnableGlitter_Instance = UNITY_ACCESS_INSTANCED_PROP(_EnableGlitter_arr, _EnableGlitter);
-			float4 lerpResult7_g130 = lerp( temp_cast_17 , ( ( SAMPLE_TEXTURE2D( _GlitterMap, sampler_Linear_Repeat, uv6_GlitterMap ) * grayscale1101 ) * ( SAMPLE_TEXTURE2D( _Glitter, sampler_Glitter, uv_Glitter ) * _GlitterColor_Instance ) ) , _EnableGlitter_Instance);
+			float4 lerpResult7_g130 = lerp( temp_cast_24 , ( ( SAMPLE_TEXTURE2D( _GlitterMap, sampler_Linear_Repeat, uv6_GlitterMap ) * grayscale1101 ) * ( SAMPLE_TEXTURE2D( _Glitter, sampler_Glitter, uv_Glitter ) * _GlitterColor_Instance ) ) , _EnableGlitter_Instance);
 			float4 glitterRender821 = lerpResult7_g130;
 			float _RimOffset_Instance = UNITY_ACCESS_INSTANCED_PROP(_RimOffset_arr, _RimOffset);
 			float dotResult21 = dot( normalize( (WorldNormalVector( i , NormalMap252 )) ) , ase_worldViewDir );
@@ -488,7 +492,7 @@ Shader "Legoman99573/Toon Cutout"
 			float4 _RimTint_Instance = UNITY_ACCESS_INSTANCED_PROP(_RimTint_arr, _RimTint);
 			float _RimOverride_Instance = UNITY_ACCESS_INSTANCED_PROP(_RimOverride_arr, _RimOverride);
 			float4 Rim_Lighting923 = ( ( saturate( ( pow( saferPower921 , _RimPower_Instance ) * ( NormalLightDir52 * ase_lightAtten ) ) ) * ( ase_lightColor * _RimTint_Instance ) ) * _RimOverride_Instance );
-			float4 temp_cast_20 = (0.0).xxxx;
+			float4 temp_cast_27 = (0.0).xxxx;
 			float dotResult946 = dot( ( ase_worldViewDir + _WorldSpaceLightPos0.xyz ) , (WorldNormalVector( i , NormalMap252 )) );
 			float _GlossyReflections_Instance = UNITY_ACCESS_INSTANCED_PROP(_GlossyReflections_arr, _GlossyReflections);
 			float smoothstepResult949 = smoothstep( 1.1 , 1.12 , pow( dotResult946 , ( ( 1.0 - _GlossyReflections_Instance ) * 20.0 ) ));
@@ -499,9 +503,9 @@ Shader "Legoman99573/Toon Cutout"
 			float4 lerpResult991 = lerp( _SpecColorToon_Instance , ase_lightColor , _SpecularLightMix_Instance);
 			float _SpecularHighlights_Instance = UNITY_ACCESS_INSTANCED_PROP(_SpecularHighlights_arr, _SpecularHighlights);
 			float _EnableSpecular_Instance = UNITY_ACCESS_INSTANCED_PROP(_EnableSpecular_arr, _EnableSpecular);
-			float4 lerpResult7_g138 = lerp( temp_cast_20 , ( ase_lightAtten * ( ( smoothstepResult949 * ( SAMPLE_TEXTURE2D( _SpecGlossMap, sampler_Linear_Repeat, uv_SpecGlossMap ) * lerpResult991 ) ) * _SpecularHighlights_Instance ) ) , _EnableSpecular_Instance);
+			float4 lerpResult7_g138 = lerp( temp_cast_27 , ( ase_lightAtten * ( ( smoothstepResult949 * ( SAMPLE_TEXTURE2D( _SpecGlossMap, sampler_Linear_Repeat, uv_SpecGlossMap ) * lerpResult991 ) ) * _SpecularHighlights_Instance ) ) , _EnableSpecular_Instance);
 			float4 Specular954 = lerpResult7_g138;
-			float4 temp_cast_21 = (0.0).xxxx;
+			float4 temp_cast_28 = (0.0).xxxx;
 			float3 ase_vertex3Pos = mul( unity_WorldToObject, float4( i.worldPos , 1 ) );
 			float _InvertDirection_Instance = UNITY_ACCESS_INSTANCED_PROP(_InvertDirection_arr, _InvertDirection);
 			float lerpResult1034 = lerp( ase_vertex3Pos.y , -ase_vertex3Pos.y , _InvertDirection_Instance);
@@ -514,12 +518,11 @@ Shader "Legoman99573/Toon Cutout"
 			float4 _GlintMap_ST_Instance = UNITY_ACCESS_INSTANCED_PROP(_GlintMap_ST_arr, _GlintMap_ST);
 			float2 uv_GlintMap = i.uv_texcoord * _GlintMap_ST_Instance.xy + _GlintMap_ST_Instance.zw;
 			float _EnableGlint_Instance = UNITY_ACCESS_INSTANCED_PROP(_EnableGlint_arr, _EnableGlint);
-			float4 lerpResult7_g135 = lerp( temp_cast_21 , ( ( _GlintColor * pow( saferPower1027 , 5.0 ) * fresnelNode1015 * 2.0 ) * SAMPLE_TEXTURE2D( _GlintMap, sampler_Linear_Repeat, uv_GlintMap ) ) , _EnableGlint_Instance);
+			float4 lerpResult7_g135 = lerp( temp_cast_28 , ( ( _GlintColor * pow( saferPower1027 , 5.0 ) * fresnelNode1015 * 2.0 ) * SAMPLE_TEXTURE2D( _GlintMap, sampler_Linear_Repeat, uv_GlintMap ) ) , _EnableGlint_Instance);
 			float4 Glint1037 = lerpResult7_g135;
-			float4 ToonShading909 = ( ( ( StandardShading488 * Lighting250 ) + Lighting250 ) + Emission759 + glitterRender821 + Rim_Lighting923 + Specular954 + Glint1037 );
-			float _EnableToon_Instance = UNITY_ACCESS_INSTANCED_PROP(_EnableToon_arr, _EnableToon);
-			float4 lerpResult7_g134 = lerp( float4( StandardSetup907 , 0.0 ) , ToonShading909 , _EnableToon_Instance);
-			c.rgb = lerpResult7_g134.rgb;
+			float4 ToonShading909 = ( ( ( StandardShading488 * Lighting250 ) + Lighting250 ) + glitterRender821 + Rim_Lighting923 + Specular954 + Glint1037 );
+			float4 lerpResult7_g145 = lerp( temp_cast_13 , ToonShading909 , _EnableToon_Instance);
+			c.rgb = ( float4( lerpResult7_g144 , 0.0 ) + lerpResult7_g145 ).rgb;
 			c.a = 1;
 			return c;
 		}
@@ -533,6 +536,44 @@ Shader "Legoman99573/Toon Cutout"
 		{
 			o.SurfInput = i;
 			o.Normal = float3(0,0,1);
+			float _Cutoff_Instance = UNITY_ACCESS_INSTANCED_PROP(_Cutoff_arr, _Cutoff);
+			float _Parallax_Instance = UNITY_ACCESS_INSTANCED_PROP(_Parallax_arr, _Parallax);
+			float _CullingMode_Instance = UNITY_ACCESS_INSTANCED_PROP(_CullingMode_arr, _CullingMode);
+			float4 _EmissionMap_ST_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionMap_ST_arr, _EmissionMap_ST);
+			float2 uv_EmissionMap = i.uv_texcoord * _EmissionMap_ST_Instance.xy + _EmissionMap_ST_Instance.zw;
+			float4 _EmissionColor_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionColor_arr, _EmissionColor);
+			float3 temp_cast_0 = (0.0).xxx;
+			float4 _EmissionMapAudioLink0_ST_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionMapAudioLink0_ST_arr, _EmissionMapAudioLink0_ST);
+			float2 uv4_EmissionMapAudioLink0 = i.ase_texcoord5.xy * _EmissionMapAudioLink0_ST_Instance.xy + _EmissionMapAudioLink0_ST_Instance.zw;
+			float4 _EmissionColorAudioLink0_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionColorAudioLink0_arr, _EmissionColorAudioLink0);
+			float _Band_Instance = UNITY_ACCESS_INSTANCED_PROP(_Band_arr, _Band);
+			int Band3_g79 = (int)_Band_Instance;
+			float2 break6_g96 = i.uv_texcoord;
+			float temp_output_5_0_g96 = ( break6_g96.x - 0.5 );
+			float _PulseRotation_Instance = UNITY_ACCESS_INSTANCED_PROP(_PulseRotation_arr, _PulseRotation);
+			float temp_output_2_0_g96 = radians( _PulseRotation_Instance );
+			float temp_output_3_0_g96 = cos( temp_output_2_0_g96 );
+			float temp_output_8_0_g96 = sin( temp_output_2_0_g96 );
+			float temp_output_20_0_g96 = ( 1.0 / ( abs( temp_output_3_0_g96 ) + abs( temp_output_8_0_g96 ) ) );
+			float temp_output_7_0_g96 = ( break6_g96.y - 0.5 );
+			float2 appendResult16_g96 = (float2(( ( ( temp_output_5_0_g96 * temp_output_3_0_g96 * temp_output_20_0_g96 ) + ( temp_output_7_0_g96 * temp_output_8_0_g96 * temp_output_20_0_g96 ) ) + 0.5 ) , ( ( ( temp_output_7_0_g96 * temp_output_3_0_g96 * temp_output_20_0_g96 ) - ( temp_output_5_0_g96 * temp_output_8_0_g96 * temp_output_20_0_g96 ) ) + 0.5 )));
+			float _Pulse_Instance = UNITY_ACCESS_INSTANCED_PROP(_Pulse_arr, _Pulse);
+			float _Delay_Instance = UNITY_ACCESS_INSTANCED_PROP(_Delay_arr, _Delay);
+			float Delay3_g79 = ( ( (_Delay_Instance + (( appendResult16_g96.x * _Pulse_Instance ) - 0.0) * (1.0 - _Delay_Instance) / (1.0 - 0.0)) % 1.0 ) * 128.0 );
+			float localAudioLinkLerp3_g79 = AudioLinkLerp3_g79( Band3_g79 , Delay3_g79 );
+			float temp_output_574_0 = localAudioLinkLerp3_g79;
+			float3 hsvTorgb567 = RGBToHSV( ( SAMPLE_TEXTURE2D( _EmissionMapAudioLink0, sampler_Linear_Repeat, uv4_EmissionMapAudioLink0 ) * _EmissionColorAudioLink0_Instance * temp_output_574_0 ).rgb );
+			float _AudioHueShift_Instance = UNITY_ACCESS_INSTANCED_PROP(_AudioHueShift_arr, _AudioHueShift);
+			float hueShift183 = _AudioHueShift_Instance;
+			float amplitude562 = temp_output_574_0;
+			float3 hsvTorgb563 = HSVToRGB( float3(( hsvTorgb567.x + ( hueShift183 * amplitude562 ) ),hsvTorgb567.y,hsvTorgb567.z) );
+			float _EmissionScale_Instance = UNITY_ACCESS_INSTANCED_PROP(_EmissionScale_arr, _EmissionScale);
+			float localIfAudioLinkv2Exists1_g114 = IfAudioLinkv2Exists1_g114();
+			float _EnableAudioLink_Instance = UNITY_ACCESS_INSTANCED_PROP(_EnableAudioLink_arr, _EnableAudioLink);
+			float3 lerpResult7_g131 = lerp( temp_cast_0 , ( ( hsvTorgb563 * _EmissionScale_Instance ) * localIfAudioLinkv2Exists1_g114 ) , _EnableAudioLink_Instance);
+			float3 AudioLink296 = lerpResult7_g131;
+			float4 Emission759 = ( ( SAMPLE_TEXTURE2D( _EmissionMap, sampler_Linear_Repeat, uv_EmissionMap ) * _EmissionColor_Instance ) + float4( AudioLink296 , 0.0 ) );
+			o.Emission = Emission759.rgb;
 		}
 
 		ENDCG
@@ -547,7 +588,7 @@ Node;AmplifyShaderEditor.CommentaryNode;937;-3301.028,2117.571;Inherit;False;354
 Node;AmplifyShaderEditor.CommentaryNode;914;-5736.237,-1309.719;Inherit;False;1972.41;956.1793;;15;82;212;60;488;262;271;692;497;711;81;689;148;473;273;1164;Albedo and Transparency;0.1009256,0.6804498,0.7924528,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;913;-2351.187,-261.4838;Inherit;False;711.3267;381.5787;;2;936;283;Used Components;0.772549,0.5450981,0.4392157,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;912;-7791.947,-1307.203;Inherit;False;1996.66;787.3569;;11;721;90;87;91;387;551;759;1046;1047;1048;1050;Emission;0.3490196,0.5176471,0.5607843,1;0;0
-Node;AmplifyShaderEditor.CommentaryNode;911;-3713.103,-1309.587;Inherit;False;2307.922;955.9736;;11;1039;959;932;822;905;909;61;762;785;1181;1200;Toon Shading;0.509434,0.2418903,0,1;0;0
+Node;AmplifyShaderEditor.CommentaryNode;911;-3713.103,-1309.587;Inherit;False;2307.922;955.9736;;10;1039;959;932;822;909;61;762;785;1181;1200;Toon Shading;0.509434,0.2418903,0,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;908;-1833.048,183.6469;Inherit;False;807.2709;492.0006;;8;396;397;393;757;758;391;775;907;Standard Shading;0.8078432,0.7294118,0,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;904;-3011.372,175.2043;Inherit;False;1111.183;505.3101;;7;208;162;161;209;712;252;857;Normal Map;0,0.3058824,1,1;0;0
 Node;AmplifyShaderEditor.CommentaryNode;903;-3311.373,727.7453;Inherit;False;3556.902;1343.892;;34;722;690;464;468;469;467;147;733;142;582;144;590;154;583;585;145;584;737;587;264;586;153;1144;1145;1146;1147;1167;1169;1171;1173;1174;1176;1177;1178;MatCap;0,1,0.8470588,1;0;0
@@ -739,7 +780,6 @@ Node;AmplifyShaderEditor.WireNode;1050;-6609.679,-1039.618;Inherit;False;1;0;COL
 Node;AmplifyShaderEditor.GetLocalVarNode;387;-6627.584,-927.7623;Inherit;False;296;AudioLink;1;0;OBJECT;;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.GetLocalVarNode;721;-7757.667,-885.5005;Inherit;False;710;samplerState;1;0;OBJECT;;False;1;SAMPLERSTATE;0
 Node;AmplifyShaderEditor.WireNode;1048;-6958.767,-1027.151;Inherit;False;1;0;COLOR;0,0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.GetLocalVarNode;905;-3336.58,-915.3784;Inherit;False;759;Emission;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;822;-3359.656,-836.4395;Inherit;False;821;glitterRender;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;932;-3355.161,-754.5756;Inherit;False;923;Rim_Lighting;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;959;-3338.054,-662.8297;Inherit;False;954;Specular;1;0;OBJECT;;False;1;COLOR;0
@@ -778,9 +818,6 @@ Node;AmplifyShaderEditor.RegisterLocalVarNode;821;-3540.196,2506.024;Inherit;Fal
 Node;AmplifyShaderEditor.PosVertexDataNode;1009;-7730.88,3961.11;Inherit;True;0;0;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;685;-4182.965,1130.376;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;FLOAT;0;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.FunctionNode;684;-4462.965,1398.376;Inherit;False;IsAudioLink;-1;;114;e83fef6181013ba4bacf30a3d9a31d37;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.GetLocalVarNode;910;348.5276,320.8598;Inherit;False;909;ToonShading;1;0;OBJECT;;False;1;COLOR;0
-Node;AmplifyShaderEditor.GetLocalVarNode;906;340.0251,245.436;Inherit;False;907;StandardSetup;1;0;OBJECT;;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.GetLocalVarNode;474;673.9301,194.7113;Inherit;False;473;Opacity;1;0;OBJECT;;False;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode;147;-2187.739,778.8362;Inherit;True;Property;_MatCapMask;MatCap Mask;30;1;[Header];Create;True;1;;0;0;False;1;Tooltip(Multiplied with the texture for the albedo channel);False;-1;None;None;True;2;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;2;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RegisterLocalVarNode;954;-31.06668,3441.929;Inherit;True;Specular;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RangedFloatNode;1137;-592,3680;Inherit;False;InstancedProperty;_EnableSpecular;Enable Specular;48;2;[Header];[ToggleUI];Create;True;2;__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________;Specular Map Setup;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
@@ -791,7 +828,6 @@ Node;AmplifyShaderEditor.RangedFloatNode;1142;-4185.965,1340.465;Inherit;False;I
 Node;AmplifyShaderEditor.RangedFloatNode;1144;-1254.21,1821.68;Inherit;False;InstancedProperty;_EnableMatCap2;Enable MatCap 2;34;2;[Header];[ToggleUI];Create;True;1;MatCap 2 Setup;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.FunctionNode;1147;-366.5841,1367.907;Inherit;True;Switch;-1;;133;f03a90057e90364449349a9482ca878b;0;3;2;FLOAT;0;False;3;COLOR;1,0,0,0;False;8;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RangedFloatNode;1146;-638.5841,1607.907;Inherit;False;InstancedProperty;_EnableMatCap;Enable MatCap;29;2;[Header];[ToggleUI];Create;True;2;__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________;MatCap Setup;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.FunctionNode;1149;611.3754,270.9114;Inherit;True;Switch;-1;;134;f03a90057e90364449349a9482ca878b;0;3;2;FLOAT3;0,0,0;False;3;COLOR;1,0,0,0;False;8;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.FunctionNode;1139;-3835.184,4118.349;Inherit;True;Switch;-1;;135;f03a90057e90364449349a9482ca878b;0;3;2;FLOAT;0;False;3;COLOR;1,0,0,0;False;8;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;1037;-3555.363,4114.904;Inherit;False;Glint;-1;True;1;0;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RangedFloatNode;1138;-3972.504,4485.286;Inherit;False;InstancedProperty;_EnableGlint;Enable Glint;54;2;[Header];[ToggleUI];Create;True;2;__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________;Glint Setup;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
@@ -831,7 +867,6 @@ Node;AmplifyShaderEditor.GetLocalVarNode;1171;-3287.608,1103.185;Inherit;False;2
 Node;AmplifyShaderEditor.GetLocalVarNode;711;-5705.346,-1023.289;Inherit;False;710;samplerState;1;0;OBJECT;;False;1;SAMPLERSTATE;0
 Node;AmplifyShaderEditor.RangedFloatNode;154;-1604.349,1407.912;Inherit;False;InstancedProperty;_AddMatCap;Add MatCap;33;0;Create;False;0;0;0;False;0;False;1;0;0;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.ViewMatrixNode;464;-2975.585,1105.87;Inherit;False;0;1;FLOAT4x4;0
-Node;AmplifyShaderEditor.RangedFloatNode;1148;339.3754,510.9114;Inherit;False;InstancedProperty;_EnableToon;Enable  Toon;27;2;[Header];[ToggleUI];Create;True;3;__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________;Toon Map Setup;Will disable Metallic and Ambient Occlusion Setups;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.GetLocalVarNode;61;-3340.843,-1062.52;Inherit;False;250;Lighting;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;762;-3382.043,-1135.39;Inherit;False;488;StandardShading;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.LightColorNode;1192;-5486.902,78.22404;Inherit;False;0;3;COLOR;0;FLOAT3;1;FLOAT;2
@@ -840,12 +875,22 @@ Node;AmplifyShaderEditor.SimpleAddOpNode;1194;-5333.742,347.9585;Inherit;True;2;
 Node;AmplifyShaderEditor.IndirectDiffuseLighting;1195;-5606.902,348.2242;Inherit;False;Tangent;1;0;FLOAT3;0,0,1;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.GetLocalVarNode;1196;-5741.401,176.4719;Inherit;False;252;NormalMap;1;0;OBJECT;;False;1;FLOAT3;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;1197;-5111.417,223.3944;Inherit;True;2;2;0;COLOR;0,0,0,0;False;1;FLOAT3;0,0,0;False;1;COLOR;0
-Node;AmplifyShaderEditor.SimpleAddOpNode;785;-2269.102,-1099.32;Inherit;True;6;6;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;COLOR;0,0,0,0;False;3;COLOR;0,0,0,0;False;4;COLOR;0,0,0,0;False;5;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;785;-2269.102,-1099.32;Inherit;True;5;5;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;COLOR;0,0,0,0;False;3;COLOR;0,0,0,0;False;4;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.GetLocalVarNode;891;-6521.307,293.8207;Inherit;True;262;albedo;1;0;OBJECT;;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;1199;-4757.931,27.496;Inherit;True;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;1181;-3085.705,-1128.22;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.SimpleAddOpNode;1200;-2928.175,-1115.708;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
-WireConnection;80;13;1149;0
+Node;AmplifyShaderEditor.GetLocalVarNode;1201;81.93774,361.3867;Inherit;False;909;ToonShading;1;0;OBJECT;;False;1;COLOR;0
+Node;AmplifyShaderEditor.RangedFloatNode;1202;72.78552,551.4383;Inherit;False;InstancedProperty;_EnableToon;Enable  Toon;27;2;[Header];[ToggleUI];Create;True;3;__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________;Toon Map Setup;Will disable Metallic and Ambient Occlusion Setups;0;0;False;0;False;1;1;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.GetLocalVarNode;1203;283.493,-179.4205;Inherit;False;473;Opacity;1;0;OBJECT;;False;1;FLOAT;0
+Node;AmplifyShaderEditor.FunctionNode;1204;328.3348,82.64491;Inherit;True;Switch;-1;;144;f03a90057e90364449349a9482ca878b;0;3;2;FLOAT3;0,0,0;False;3;FLOAT;1;False;8;FLOAT;0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.GetLocalVarNode;1205;66.43524,141.9629;Inherit;False;907;StandardSetup;1;0;OBJECT;;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.FunctionNode;1206;329.7856,293.4383;Inherit;True;Switch;-1;;145;f03a90057e90364449349a9482ca878b;0;3;2;FLOAT;0;False;3;COLOR;1,0,0,0;False;8;FLOAT;0;False;1;COLOR;0
+Node;AmplifyShaderEditor.RangedFloatNode;1207;87.33472,283.6449;Inherit;False;Constant;_Float2;Float 2;62;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.SimpleAddOpNode;1208;691,155;Inherit;False;2;2;0;FLOAT3;0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.GetLocalVarNode;905;484.4306,-68.39349;Inherit;False;759;Emission;1;0;OBJECT;;False;1;COLOR;0
+WireConnection;80;2;905;0
+WireConnection;80;13;1208;0
 WireConnection;153;0;144;0
 WireConnection;153;1;154;0
 WireConnection;586;0;153;0
@@ -1072,9 +1117,6 @@ WireConnection;1143;3;685;0
 WireConnection;1143;8;1142;0
 WireConnection;1147;3;586;0
 WireConnection;1147;8;1146;0
-WireConnection;1149;2;906;0
-WireConnection;1149;3;910;0
-WireConnection;1149;8;1148;0
 WireConnection;1139;3;1150;0
 WireConnection;1139;8;1138;0
 WireConnection;1037;0;1139;0
@@ -1118,16 +1160,23 @@ WireConnection;1195;0;1196;0
 WireConnection;1197;0;1192;0
 WireConnection;1197;1;1194;0
 WireConnection;785;0;1200;0
-WireConnection;785;1;905;0
-WireConnection;785;2;822;0
-WireConnection;785;3;932;0
-WireConnection;785;4;959;0
-WireConnection;785;5;1039;0
+WireConnection;785;1;822;0
+WireConnection;785;2;932;0
+WireConnection;785;3;959;0
+WireConnection;785;4;1039;0
 WireConnection;1199;0;247;0
 WireConnection;1199;1;1197;0
 WireConnection;1181;0;762;0
 WireConnection;1181;1;61;0
 WireConnection;1200;0;1181;0
 WireConnection;1200;1;61;0
+WireConnection;1204;2;1205;0
+WireConnection;1204;3;1207;0
+WireConnection;1204;8;1202;0
+WireConnection;1206;2;1207;0
+WireConnection;1206;3;1201;0
+WireConnection;1206;8;1202;0
+WireConnection;1208;0;1204;0
+WireConnection;1208;1;1206;0
 ASEEND*/
-//CHKSM=6CF9D6B7E165D3DD69D273197FA659D37DE69C40
+//CHKSM=5309C647033068CE04D5F2E3C3276FB280C7F20B

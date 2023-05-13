@@ -4,6 +4,7 @@
 - Added Outline Variants of the shaders
 - Added Alpha Premultiplied variant (if anyone needs it)
 - Improved Differences with Toon and Standard switching (No more standard sneek clipping, but I may add an option to mix it if needed someday.)
+- Added in CHANGELOG.md and LICENSE.md for Package Manager use.
 
 ## [1.4.1] - 2023-05-10
 - Fixed an issue where non Directional lights would clip lighting (unintended behavior)

@@ -70,3 +70,11 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+/.[Ii]dea
+/com.legoman99573.toon-shader/CHANGELOG.md
+/com.legoman99573.toon-shader/CHANGELOG.md.meta
+/com.legoman99573.toon-shader/LICENSE.md
+/com.legoman99573.toon-shader/LICENSE.md.meta
+/com.legoman99573.toon-shader/README.md
+/com.legoman99573.toon-shader/README.md.meta

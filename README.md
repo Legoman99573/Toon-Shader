@@ -5,7 +5,7 @@ This was taken from some tutorials and mixed up for multiple uses. Can be used a
 
 You can add to the VRChat Creator Companion by going to ``Settings > Packages > Add Repository`` and just adding ``https://world.ugandavrc.com/index.json``
 or
-[Click Here to add to VCC](vcc://vpm/addRepo?url=https://world.ugandavrc.com/index.json)
+[Click Here to add to VCC](https://world.ugandavrc.com/VRChatCreatorCompanion/index.html)
 
 ## Notes
 * If you see something weird with transparency, just set it to AlphaTest and it should fix it.

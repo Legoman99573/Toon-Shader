@@ -1,9 +1,19 @@
 # Changelog
 
+# [1.6.2] - 2023-10-30
+- Fixed shader being too bright and breaking with post processing
+- Added Minimum Toon Spec (strips most stuff out except toon map)
+- Shader now requires AudioLink 1.0.0 or newer to work.
+
 ## [1.6.0-1.6.1] - 2023-05-13
 - Removed Outlines (do not work)
 - Fixed lighting issues
 - MatCaps are a bit brighter as they are extremely low on max addition of one.
+
+## [1.5.0] - 2023-05-13
+- Added Outline Variants of the shaders
+- Added Alpha Premultiplied variant (if anyone needs it)
+- Improved Differences with Toon and Standard switching (No more standard sneek clipping, but I may add an option to mix it if needed someday.)
 
 ## [1.4.1] - 2023-05-10
 - Fixed an issue where non Directional lights would clip lighting (unintended behavior)

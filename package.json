@@ -1,7 +1,7 @@
 {
   "name": "com.ugandavrc.toon-shader",
   "displayName": "Legoman99573 Toon Shader",
-  "version": "master",
+  "version": "2.0.0-beta.1",
   "description": "Toon Shader for VRChat",
   "author": {
     "name": "Legoman99573",
@@ -31,5 +31,5 @@
   ],
   "legacyFiles": {},
   "type": "library",
-  "unity": "2019.4"
+  "unity": "2022.3"
 }
